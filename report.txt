@@ -1,0 +1,1466 @@
+EDUBURNOUT AI: EARLY RISK DETECTION USING 
+MACHINE LEARNING  
+A Project Report  
+Submitted by  
+Bairoju Sathwik  
+2303031240237  
+Nagineni Pavithra  
+2303031240101  
+Banoth Pavan  
+2303031240242  
+Vanga Akshaya Kumar  
+2303031240159  
+In Partial Fulfilment for the  
+Award of the Degree of  
+BACHELOR OF TECHNOLOGY  
+ARTIFICIAL INTELLIGENCE AND DATA SCIENCES  
+Under the Guidance of  
+Ms. Barkha Makwana  
+Assistant Professor  
+ 
+PARUL UNIVERSITY, VADODARA  
+October - 2026  
+ii  
+PARUL UNIVERSITY  
+CERTIFICATE  
+This is to certify that Project -2, Subject Code 303105423 of the 7th Semester, entitled “EduBurnout AI: 
+Early Risk Detection Using Machine Learning” of Group No. NON -ASMP 9 has been completed by  
+• BAIROJU SATHWIK - 2303031240237  
+• NAGINENI PAVITHRA - 2303031240101  
+• BANOTH PAVAN - 2303 031240242  
+• VANGA AKSHAYA KUMAR - 2303031240159  
+Under my guidance, in partial fulfilment of the Bachelor of Technology (B. TECH) in Artificial 
+Intelligence and Data Sciences at Parul University in the Academic Year 2025 -2026.  
+Date of Submission:  
+Project Guid e 
+Ms. Barkha Makwana  
+Assistant Professor  Head of Department,  
+Dr. Sanjay Agal  
+Department of Artificial Intelligence and Data 
+Sciences  
+Parul Institute of Engineering and Technology  
+Parul University, Vadodara  
+  
+  
+Project Coordinator  
+Dr. Mohammad Arif    
+  
+  
+External Examiner  
+iii Acknowledgements  
+“The single greatest cause of happiness is gratitude.”  
+-Auliq -Ice 
+We would like to express our gratitude to our supervisor, Ms. Barkha Makwana , who is an 
+Assistant Professor in the Department of Artificial Intelligence a nd Data Science at Parul 
+Institute of Engineering and Technology, Parul University, for her advice, encouragement, 
+enduring patience and constant support to us. We thank our Head of the Department of AIDS 
+(PIET), Dr. Sanjay Agal , for supporting us.  
+We are greatly indebted to all the faculty members of the Artificial Intelligence and Data Science 
+Department of Parul University for their valuable input and for helping us understand theories 
+and models along the bachelor's program.  
+We would like to express our  sincere appreciation and gratitude to all our classmates for their 
+encouragement, consistent support and invaluable suggestions at the time when needed. We 
+remain grateful to all who directly or indirectly helped us at different stages of our project work . 
+With deep appreciation, we recognise the invaluable contributions of all individuals and entities 
+mentioned above, without whom the successful completion of this project would not have been 
+possible.  
+Bairoju Sathwik  
+Nagineni Pavithra  
+Banoth Pavan  
+Vanga Akshaya Kumar  
+B.Tech. – AI & DS  
+Parul University, Vadodara  iv Abstract  
+Academic burnout and cognitive overload are increasingly prevalent among students in higher 
+education, driven by mounting academic pressures, information overload, and inadequate coping 
+mechanisms. Early identification of these conditions is critical to enabling timely intervention 
+and supporting student well -being. However, traditional approaches to detection rely on self -
+reported surveys and retrospective assessments, which are often inac curate, delayed, and 
+intrusive. There is a growing need for automated, non -intrusive systems capable of predicting 
+burnout and cognitive overload in real time using observable behavioural signals.  
+This project proposes a machine learning -based framework fo r the early prediction of academic 
+burnout and cognitive overload by analysing student behavioural patterns. The system collects 
+and processes multi -modal behavioural data including study session durations, interaction logs, 
+assignment submission patterns,  browsing behaviour, and response times. Feature engineering 
+techniques are applied to extract meaningful indicators such as irregularity in study schedules, 
+declining engagement trends, and task -switching frequency, which are known correlates of 
+burnout a nd overload.  
+Classification models including Random Forest, Support Vector Machines, and LSTM -based 
+deep learning networks are trained and evaluated on labelled student behavioural datasets. The 
+system outputs early warning predictions at multiple risk lev els, enabling educators and 
+counsellors to intervene proactively. Experimental results demonstrate that the proposed 
+approach achieves high prediction accuracy while maintaining low false -positive rates. The 
+framework is designed to be lightweight, privacy -preserving, and deployable within existing 
+Learning Management Systems, making it a practical tool for student wellness support in 
+educational institutions.  v Table of Contents  
+Acknowledgements  iii 
+Abstract  iv 
+Table of Contents  v 
+List of Tables  viii 
+List of  Figures  ix 
+List of Algorithms  x 
+1 Introduction  1 
+1.1 Drawbacks of the Existing Solution  ................................ ................................ ...............................  2 
+1.2 Motivation  ................................ ................................ ................................ ................................ ..... 3 
+1.3 Scope  ................................ ................................ ................................ ................................ ............  4 
+1.3.1  Target Population and Data Sources  ................................ ................................ ......................  4 
+1.3.2  Exclusions  ................................ ................................ ................................ ............................  5 
+1.3.3  Rationale for the Chosen Focus  ................................ ................................ .............................  5 
+1.4 Aim and Objectives  ................................ ................................ ................................ .......................  5 
+1.5 Definition of Key Terms  ................................ ................................ ................................ ................  6 
+1.6 Significance of the Study  ................................ ................................ ................................ ...............  7 
+1.6.1  Educational Significance  ................................ ................................ ................................ ....... 7 
+1.6.2  Technological Significance  ................................ ................................ ................................ ... 7 
+1.6.3  Societal Significance ................................ ................................ ................................ .............  7 
+1.6.4  Ethical Significance  ................................ ................................ ................................ ..............  8 
+1.6.5  Economic Scalability  ................................ ................................ ................................ ............  8 
+1.7 Organisation of the Report  ................................ ................................ ................................ .............  8 
+2 Literat ure Survey  9 
+2.1 Critical Evaluation of Available Literature  ................................ ................................ .....................  9 
+2.1.1  Academic Burnout: Theoretical Foundations  ................................ ................................ .........  9 
+2.1.2  Cognitive Overload in Learning Environments  ................................ ................................ .... 10 
+2.1.3  Burnout Detection Using Surveys and Physiological Signals  ................................ ...............  11 
+2.1.4  Behavioural Indicators of Burnout and Cognitive Overload  ................................ .................  12 
+2.1.5  Learning Management System Data Analysis ................................ ................................ ...... 12 
+2.1.6  Machine Learning in Educational Data Mining  ................................ ................................ ... 13 
+2.1.7  Deep Learning for Sequential Behavioural Data  ................................ ................................ .. 14 
+2.1.8  Natural Language Processing Approaches  ................................ ................................ ...........  14 
+2.1.9 Transfer Learning and Domain Adaptation ................................ ................................ ..........  15 vi 2.1.10  Comparison with Existing Systems  ................................ ................................ .....................  16 
+2.1.11  Privacy and Ethics in Student Monitoring Systems  ................................ ..............................  16 
+2.2 Other Papers Reviewed ................................ ................................ ................................ ................  17 
+2.3 Summary and Research Gap  ................................ ................................ ................................ ........  17 
+3 Project Flow and Methodology  19 
+3.1 Problem Formulation  ................................ ................................ ................................ ...................  19 
+3.2 System Overview  ................................ ................................ ................................ ........................  20 
+3.3 Dataset Description  ................................ ................................ ................................ .....................  20 
+3.4 Data Collection and Preprocessing  ................................ ................................ ...............................  21 
+3.5 Feature Engineering ................................ ................................ ................................ .....................  23 
+3.5.1  Engagement Features  ................................ ................................ ................................ ..........  23 
+3.5.2  Temporal Pattern Features  ................................ ................................ ................................ .. 23 
+3.5.3  Submission Behaviour Features  ................................ ................................ ..........................  23 
+3.5.4  Micro -Survey Features ................................ ................................ ................................ ........  24 
+3.6 Prediction Models ................................ ................................ ................................ ........................  24 
+3.6.1  Random Forest  ................................ ................................ ................................ ...................  24 
+3.6.2  Support Vector Machine  ................................ ................................ ................................ ..... 24 
+3.6.3  LSTM Network  ................................ ................................ ................................ ..................  25 
+3.7 Class Imbalance Handling  ................................ ................................ ................................ ...........  25 
+3.8 Model Training and Hyperparameter Tuning  ................................ ................................ ...............  25 
+3.9 Evaluation Metrics  ................................ ................................ ................................ ......................  26 
+3.10 Validation Strategy and Experimental Protocol  ................................ ................................ ............  27 
+3.11 Risk Alert and Dashboard Module  ................................ ................................ ...............................  28 
+3.11.1  Student Level ................................ ................................ ................................ ......................  28 
+3.11.2  Advisor Level  ................................ ................................ ................................ .....................  28 
+3.11.3  Institutional Level  ................................ ................................ ................................ ...............  29 
+3.12 System Integration Architecture  ................................ ................................ ................................ ... 29 
+3.13 Model Interpretability and Explainability  ................................ ................................ .....................  29 
+4 Results and Analysis  31 
+4.1 Tools and Technologies  ................................ ................................ ................................ ...............  31 
+4.2 Overall Model Performance  ................................ ................................ ................................ .........  32 
+4.3 Confusion Matrix Analysis  ................................ ................................ ................................ ..........  33 
+4.4 Effect of Feature Set Composition  ................................ ................................ ...............................  34 vii 4.5 Effect of Observation Window Length  ................................ ................................ .........................  35 
+4.6 Cross -Validation Results  ................................ ................................ ................................ .............  36 
+4.7 Discussion  ................................ ................................ ................................ ................................ ... 37 
+4.8 Feature Importance Analysis ................................ ................................ ................................ ........  38 
+4.9 Per-Class Performance Analysis  ................................ ................................ ................................ .. 39 
+4.10 Computational Performance  ................................ ................................ ................................ ........  40 
+5 Conclusion and Future Works  42 
+5.1 Conclusion  ................................ ................................ ................................ ................................ .. 42 
+5.2 Limitations  ................................ ................................ ................................ ................................ .. 42 
+5.3 Future Prospects  ................................ ................................ ................................ ..........................  43 
+5.4 Recommendations for Institutional Deployment ................................ ................................ ...........  43 
+5.5 Broader Implications  ................................ ................................ ................................ ...................  44 
+ Bibliography  46 viii List of Tables  
+2.1 Comparative Summary of Related Work  ................................ ................................ ...............  17 
+3.1 Class Distribution of the Labelled Dataset  ................................ ................................ .............  21 
+3.2 Hyperparameter Search Space and Best Configuration of Each Model  ................................ ... 26 
+4.1 Tools and Technologies Used  ................................ ................................ ................................  31 
+4.2 Overall Model Performance Comparison  ................................ ................................ ...............  32 
+4.3 AUC -ROC Scores per Risk Class  ................................ ................................ ..........................  32 
+4.4 Confusion Matrix – LSTM Model  ................................ ................................ .........................  33 
+4.5 Ablation Study – Effect of Feature Categories on F1 -Score (Random Forest)  ........................  34 
+4.6 Effect of Observation Window Length on High Risk Recall (LSTM)  ................................ ..... 35 
+4.7 5-Fold Cross -Validation Results  ................................ ................................ ............................  36 
+4.8 Top 10 Most Important Features by Mean Absolute SHAP Value (Random Forest)  ...............  38 
+4.9 Per-Class Precision, Recall and F1 -Score on Test Set  ................................ ............................  39 
+4.10 Computational Performance of Models  ................................ ................................ ..................  40 ix List of Figures  
+1.1 Overall System Architecture for Early Burnout and Cognitive Overload Prediction  .................  3 
+3.1 Feature Engineering Pipeline Showing Four Feature Categories and Processing Steps  ...........  23 
+3.2 LSTM Neural Network Architecture with Layer Configuration and Training Parameters  ....... 25 
+3.3 Risk Pr ediction and Alert Generation Workflow from Daily Log Ingestion to Advisor 
+Notification  ................................ ................................ ................................ ...........................  28 
+4.1 Overall Model Performance Comparison  ................................ ................................ ...............  32 
+4.2 AUC -ROC Score by Risk Class ................................ ................................ .............................  33 
+4.3 Confusion Matrix – LSTM Model  ................................ ................................ .........................  34 
+4.4 Effect of Feature Categories on F1 -Score (Ran dom Forest) ................................ ....................  35 
+4.5 Effect of Observation Window Length (LSTM)  ................................ ................................ ..... 36 
+4.6 5-Fold Cross -Validation Accuracy (± Std. Dev.)  ................................ ................................ .... 37 
+4.7 Top 10 Feature Importance by Mean |SHAP| Value  ................................ ...............................  38 
+4.8 Per-Class Precision, Recall and F1 -Score by Model  ................................ ...............................  40 
+4.9 Model Computational Pe rformance Comparison  ................................ ................................ .... 41 x List of Algorithms  
+1 LMS Event Session Segmentation  ................................ ................................ .........................  22 
+2 24-Dimensional Feature Vector Construction  ................................ ................................ ........  24 
+3 LSTM Model Training with Class -Balanced Sequences  ................................ .........................  26 
+4 Daily Risk Inference and Alert Generation  ................................ ................................ ............  29  
+1 Chapter 1  
+Introduction  
+Academic burnout and cognitive overload are among the most pressing challenges facing 
+students in higher education today. The rap id expansion of academic curricula, increasing 
+competitive pressures, digital information saturation, and the blurring of boundaries between 
+study and personal life have collectively contributed to a growing mental health crisis among 
+university students. Burnout, characterised by emotional exhaustion, depersonalisation, and a 
+reduced sense of personal accomplishment, has been shown to significantly impair academic 
+performance, mental well -being, and long -term career outcomes [1].  
+Cognitive overload, a clos ely related phenomenon, occurs when the volume and complexity of 
+information presented to a student exceeds the processing capacity of working memory. When 
+students are consistently exposed to tasks that demand more cognitive resources than they 
+possess, t heir ability to learn, retain, and apply knowledge deteriorates significantly [2]. Left 
+undetected, both burnout and cognitive overload can escalate into serious psychological 
+conditions including anxiety disorders and depression.  
+The proliferation of digi tal learning environments, Learning Management Systems (LMS), and 
+wearable devices has created an unprecedented opportunity to capture rich, continuous, and 
+objective behavioural data from students. Patterns such as study session frequency and duration, 
+assignment submission timings, login frequency, scrolling behaviour, response latencies, and 
+interaction logs provide a real -time window into a student's cognitive and emotional state. When 
+analysed using machine learning techniques, these behavioural signal s can serve as powerful 
+early indicators of academic burnout and cognitive overload [4].  
+This project proposes a comprehensive framework for the early prediction of academic burnout 
+and cognitive overload through the automated analysis of student behaviour al data. The system 
+collects multi -modal behavioural features, applies feature engineering and selection techniques, 
+and trains multiple machine learning classifiers to generate early warning predictions. The CHAPTER 1. INTRODUCTION  
+2 framework is designed to integrate seamlessly w ith existing LMS platforms and to operate in a 
+privacy -preserving manner, making it practical for real -world deployment.  
+It is important to recognise that burnout and cognitive overload, while conceptually distinct, are 
+deeply interconnected in practice. C ognitive overload is fundamentally a short -term, task -level 
+phenomenon rooted in the information -processing limits of working memory, whereas burnout 
+is a longer -term, affective and motivational state that develops over weeks or months of 
+sustained strain.  In practice, however, the two conditions frequently reinforce one another in a 
+feedback loop: repeated episodes of cognitive overload leave a student feeling perpetually 
+behind, which erodes motivation and self -efficacy, which in turn makes subsequent lea rning 
+tasks feel even more cognitively demanding than they objectively are. A prediction system that 
+focuses on behavioural signals is well positioned to capture this feedback loop, because many 
+of the same observable indicators, such as declining engageme nt, erratic study timing, and rising 
+task-switching frequency, are shared precursors of both conditions.  
+The feasibility of behaviour -based early warning systems has also been shaped by a broader shift 
+in how higher education is delivered. The accelerated adoption of hybrid and fully online 
+learning models over the past several years has meant that a much larger share of a student's 
+academic activity now leaves a digital trace than was the case a decade ago. Lecture attendance, 
+resource access, formative qu izzes, discussion forum participation, and assignment submission 
+increasingly occur through LMS platforms rather than in person. This shift is double -edged: it 
+has removed many of the informal, face -to-face cues that instructors historically relied upon to  
+notice a struggling student, such as visible fatigue or withdrawal in the classroom, while 
+simultaneously making available a much richer stream of passive behavioural data than existed 
+before. The framework proposed in this project is designed specificall y to take advantage of this 
+shift, substituting the informal observational cues that are now harder to obtain with structured, 
+continuously collected behavioural signals.  
+1.1 Drawbacks of the Existing Solution  
+Traditional approaches to identifying at -risk students rely heavily on self -reported surveys, 
+periodic academic assessments, and one -on-one counselling sessions. These methods suffer 
+from significant limitations:  
+1. Reactive Rather than Proactive:  Existing methods act only after a problem has become 
+visible. By the time a student is formally identified as experiencing burnout, the condition 
+may already be severe and difficult to reverse [3].  CHAPTER 1. INTRODUCTION  
+3 2. Reporting Bias and Lack of Granularity:  Self-reported data is prone to bias and recall 
+errors, and these methods la ck the granularity needed for early and accurate detection.  
+3. Infrequent, Blanket Survey Instruments:  Consider a student who experiences a 
+sudden, sharp decline in engagement following an unexpected personal setback, such as 
+a family emergency or a health is sue, midway through a semester. If the institution's only 
+mechanism for detecting distress is a single end -of-semester wellness survey, this 
+student's difficulties may go entirely unnoticed until final grades are already affected.  
+4. Impractical at Scale:  Standardised psychometric instruments such as the Maslach 
+Burnout Inventory remain the gold standard for clinical assessment, but their use in large -
+scale monitoring is impractical due to the time and effort required for administration, the 
+risk of survey fat igue, and the inability to provide real -time assessments [22].  
+5. Costly and Intrusive Physiological Monitoring:  Physiological approaches are 
+promising but costly and intrusive, and they require specialised hardware that is not yet 
+widely available in educati onal settings [23].  
+The points outline the key challenges and limitations of current approaches to detecting 
+academic burnout and cognitive overload.  
+The following diagram shows the overview of the proposed system in order to overcome the 
+above -mentioned drawbacks of the existing detection approaches.  
+ 
+Figure 1.1: Overall System Architecture for Early Burnout and Cognitive Overload Prediction  
+CHAPTER 1. INTRODUCTION  
+4 1.2 Motivation  
+Several studies have reported that over 40% of university students experience clinically 
+significan t levels of burnout during their academic careers [5]. The consequences extend beyond 
+academic performance, affecting physical health, interpersonal relationships, and post -
+graduation well -being. Despite this, most institutions lack automated, scalable sys tems capable 
+of identifying students at risk before their condition worsens.  
+The availability of digital behavioural data offers a unique opportunity to address this gap. 
+Unlike self -reports, behavioural data is objective, continuous, and collected passive ly without 
+interrupting the student. Machine learning models trained on such data can learn complex non -
+linear patterns that are invisible to human observers, making them well -suited for early 
+prediction tasks in educational settings.  
+Beyond the direct imp act on individual students, institutions themselves carry a strong 
+motivation to address burnout at scale. Elevated burnout within a cohort is associated with lower 
+retention, higher withdrawal and repeat -enrolment rates, and reduced satisfaction scores in  
+student surveys, all of which have downstream effects on an institution's academic standing, 
+funding, and accreditation outcomes. From a purely operational perspective, even a modest 
+improvement in early identification of at -risk students can translate in to meaningful reductions 
+in attrition, making investment in automated monitoring systems financially as well as ethically 
+justifiable for university administrations.  
+A further motivation stems from the limitations of infrequent, blanket survey instruments.  A 
+continuously operating behavioural monitoring system, in contrast to a single end -of-semester 
+wellness survey, is capable of flagging a sudden change in activity pattern within days, creating 
+a window for timely advisor outreach that a periodic survey s imply cannot provide.  
+1.3 Scope  
+The scope of this project is deliberately bounded so that its goals remain well -defined and 
+achievable within the available data and timeframe.  
+1.3.1  Target Population and Data Sources  
+This project focuses on undergraduate s tudents enrolled in technology and science programmes, 
+where academic pressures and information density are particularly high. The behavioural data 
+considered includes LMS interaction logs, assignment submission patterns, and self -reported 
+stress indicator s collected through periodic micro -surveys embedded in the learning platform. CHAPTER 1. INTRODUCTION  
+5 The scope is limited to the prediction stage; the design of intervention strategies following a 
+positive prediction is considered future work.  
+1.3.2  Exclusions  
+Several related problems are explicitly excluded from the scope of this project. The framework 
+does not attempt to predict burnout in primary or secondary school students, whose 
+developmental stage, academic structures, and available digital trace data differ substantiall y 
+from the undergraduate context studied here. Graduate research students, whose work patterns 
+are typically project -based and loosely scheduled rather than organised around a fixed LMS -
+driven curriculum, are also outside the current scope, as the behaviou ral signals used by the 
+system assume a reasonably structured course and assignment schedule. Likewise, learning 
+environments that operate largely outside a Learning Management System, such as purely in -
+person programmes with minimal digital infrastructure , are not addressed, since the system's 
+feature extraction pipeline depends fundamentally on the availability of LMS interaction logs.  
+1.3.3  Rationale for the Chosen Focus  
+The decision to focus specifically on undergraduate technology and science programme s was 
+driven by two practical considerations. First, these programmes tend to have comparatively 
+dense curricula, frequent formative assessment, and heavy reliance on digital submission 
+platforms, which together produce a richer and more regular stream of behavioural data than is 
+typically available in less digitally intensive disciplines. Second, prior literature reviewed in 
+Chapter 2 indicates that burnout prevalence is particularly high in technically demanding fields, 
+making this population both data -rich and practically significant for early intervention.  
+1.4 Aim and Objectives  
+Building on the motivation outlined above, this project is guided by a set of concrete technical 
+and practical objectives. These objectives collectively define what the system mu st achieve in 
+order to be considered a viable early -warning tool, and they directly shape the design and 
+evaluation decisions presented in the later chapters of this report. The primary objectives of this 
+project are as follows:  
+1. Feature Identification:  To identify and extract meaningful behavioural features from 
+student activity logs that are indicative of academic burnout and cognitive overload.  CHAPTER 1. INTRODUCTION  
+6 2. Model Development and Comparison:  To develop and compare multiple machine 
+learning models including Random Fores t, Support Vector Machine (SVM), and Long 
+Short -Term Memory (LSTM) networks for burnout prediction.  
+3. Performance Evaluation:  To evaluate the performance of the proposed models using 
+standard classification metrics including accuracy, precision, recall, F1 -score, and AUC -
+ROC.  
+4. Lightweight, Modular Design:  To design a lightweight, modular prediction framework 
+that can be integrated into existing Learning Management Systems.  
+5. Real -World Validation:  To validate the framework on a real -world student behavioural 
+dataset and demonstrate its effectiveness for early warning generation.  
+Each of these objectives maps onto a specific chapter later in this report: feature identification 
+and extraction is addressed in Chapter 3, model development and comparison in Chapter 3,  
+quantitative evaluation in Chapter 4, and the practicalities of LMS integration and real -world 
+validation are discussed throughout Chapters 3, 4 and 5. Framing the objectives this way ensures 
+that every design decision made in the system can be traced bac k to a stated project goal, rather 
+than being an arbitrary implementation choice.  
+1.5 Definition of Key Terms  
+To ensure clarity and consistency throughout this report, the following key terms are defined:  
+• Academic Burnout:  A state of chronic physical and e motional exhaustion resulting from 
+prolonged exposure to demanding academic workloads, characterised by reduced 
+motivation, feelings of cynicism toward one's studies, and a perceived decline in 
+academic competence.  
+• Cognitive Overload:  A condition that aris es when the total cognitive load imposed by a 
+learning task or environment exceeds the available capacity of the student's working 
+memory, resulting in degraded task performance and reduced information retention.  
+• Behavioural Analysis:  The systematic examin ation of observable student actions and 
+patterns such as login frequency, submission timing, and resource access, to infer 
+underlying cognitive or emotional states.  
+• Learning Management System (LMS):  A software platform used by educational 
+institutions to d eliver, manage, and track educational content, assignments, and student 
+interactions. Examples include Moodle, Canvas, and Blackboard.  CHAPTER 1. INTRODUCTION  
+7 • Feature Vector:  A numerical representation of a student's behavioural state for a given 
+time window, constructed by aggre gating and transforming raw interaction events into a 
+fixed -length array of features suitable for input to a machine learning model.  
+• Risk Level:  A categorical label assigned by the prediction system to a student for a given 
+time window, indicating the estimated likelihood of experiencing burnout or cognitive 
+overload. Three levels are used: Low Risk, Moderate Risk, and High Risk.  
+• Class Imbalance:  A characteristic of a labelled dataset in which the number of examples 
+belonging to one class, such as High Risk, is substantially smaller than the number of 
+examples belonging to other classes, which can bias a naively trained classifier toward 
+the majori ty class.  
+• Explainability (XAI):  The property of a machine learning system that allows its 
+predictions to be interpreted and justified in terms understandable to a human user, 
+typically through techniques such as SHAP values or attention weight visualisatio n, 
+rather than being treated as an opaque black box.  
+1.6 Significance of the Study  
+The significance of this study lies at the intersection of educational technology, mental health 
+support, and artificial intelligence.  
+1.6.1  Educational Significance  
+From an  educational perspective, early identification of at -risk students enables institutions to 
+allocate counselling resources proactively rather than reactively, potentially preventing 
+academic failure and withdrawal. Studies have shown that students who recei ve timely support 
+during early burnout stages are significantly more likely to recover full academic engagement 
+within a single semester compared to those who receive support only after severe deterioration 
+[3]. 
+1.6.2  Technological Significance  
+From a tech nological perspective, this project demonstrates the feasibility of deploying 
+lightweight machine learning models within existing institutional infrastructure without 
+requiring additional hardware or significant computational resources. The modular design of the 
+proposed system means that individual components such as the feature extractor or the prediction 
+model can be upgraded independently as the underlying technology evolves.  CHAPTER 1. INTRODUCTION  
+8 1.6.3  Societal Significance  
+From a societal perspective, the project contribut es to the broader goal of making higher 
+education more equitable and humane. Students from disadvantaged backgrounds, first -
+generation university students, and students with limited access to informal support networks 
+are disproportionately affected by bur nout and have less access to support services. An 
+automated early warning system embedded in the LMS they already use daily provides a safety 
+net that is available equally to all students regardless of their social circumstances.  
+1.6.4  Ethical Significance  
+There is also an important ethical significance to approaching this problem through passive 
+behavioural monitoring rather than more invasive alternatives. Physiological monitoring 
+approaches, discussed in more detail in Chapter 2, require wearable hardwar e and continuous 
+biometric data collection, which raises substantial privacy and consent concerns and is typically 
+unaffordable at institutional scale. By contrast, a system built on data that institutions already 
+collect for administrative purposes, combi ned with a lightweight, opt -in micro -survey, offers a 
+markedly less intrusive path to the same early -warning capability, provided it is deployed with 
+the governance safeguards discussed in Section 2.1.11 and Chapter 5.  
+1.6.5  Economic Scalability  
+Finally, t he study carries a significance tied to economic scalability. Once trained, the marginal 
+cost of generating a daily risk prediction for an additional student is extremely small, as 
+demonstrated by the computational performance figures presented in Chapter 4. This stands in 
+sharp contrast to counsellor -led or survey -administered screening, whose costs scale roughly 
+linearly with the number of students assessed. A system with a low and largely fixed marginal 
+cost per additional student is far more attractive for institutions seeking to extend wellness 
+support to their entire student body rather than a small subset who proactively seek help.  
+1.7 Organisation of the Report  
+The remainder of this report is organised as follows. Chapter 2 presents a review of liter ature on 
+academic burnout, cognitive overload, and machine learning approaches in educational data 
+mining, together with existing detection systems, ethical considerations, and the research gap 
+addressed by this project. Chapter 3 formally states the probl em and describes the project flow 
+and methodology, including the dataset, data pipeline, feature engineering, prediction models, 
+training procedure, validation strategy, and system architecture. Chapter 4 describes the tools 
+and technologies used and prese nts the experimental results and analysis. Chapter 5 concludes CHAPTER 1. INTRODUCTION  
+9 the report, discusses limitations, outlines directions for future work, and offers recommendations 
+for institutional deployment.   
+10 Chapter 2  
+Literature Survey  
+This chapter reviews the existing literature on academic burnout, cognitive overload, educational 
+data mining, and machine learning -based prediction systems. The review is organised into 
+thematic areas: theoretical foundations of burnout and cognitive overload, prior work on 
+detection using surveys and physiological signals, behavioural indicators and LMS data analysis, 
+machine learning approaches in educational settings, deep learning applications for se quential 
+behavioural data, and the privacy and ethical dimensions of student monitoring.  
+The literature surveyed in this chapter was drawn primarily from peer -reviewed journals and 
+conference proceedings in educational data mining, learning analytics, occu pational psychology, 
+and applied machine learning. Preference was given to studies published within the last decade, 
+reflecting the rapid evolution of both burnout theory in digital learning contexts and the machine 
+learning techniques applied to behaviour al prediction tasks, although foundational theoretical 
+works on burnout and cognitive load, some of which predate this window considerably, are also 
+included where they remain the basis for current empirical research.  
+2.1 Critical Evaluation of Available L iterature  
+2.1.1  Academic Burnout: Theoretical Foundations  
+The concept of burnout was first introduced by Freudenberger [6] and later formalised by 
+Maslach and Jackson [7] through the development of the Maslach Burnout Inventory (MBI). 
+The MBI defines burno ut along three dimensions: emotional exhaustion (feeling depleted of 
+emotional resources), depersonalisation (developing a detached or cynical attitude toward one's 
+work), and reduced personal accomplishment (a sense of ineffectiveness and failure). 
+Subseq uent work adapted this framework to academic settings, resulting in the Maslach Burnout 
+Inventory - Student Survey (MBI -SS) [8].  
+Schaufeli et al. [9] further refined the academic burnout model by identifying exhaustion, 
+cynicism, and academic inefficacy as  the core dimensions. Their longitudinal studies CHAPTER 2. LITERATURE SURVEY  
+11 demonstrated that burnout develops gradually over time and is strongly correlated with study -
+related stress, lack of autonomy, and poor social support. These findings underscore the 
+importance of early detec tion before the condition becomes entrenched.  
+Beyond the exhaustion -centred MBI framework, resource -based theories of occupational stress 
+have also been influential in explaining how burnout develops. Conservation of Resources 
+(COR) theory, originally prop osed by Hobfoll in the organisational psychology literature, 
+models burnout as the consequence of a sustained net loss of personal resources, such as time, 
+energy, and a sense of control, relative to the demands placed on an individual. Applied to the 
+academic context, COR theory suggests that burnout is not simply the result of high workload 
+in isolation, but of workload that persistently outpaces a student's ability to replenish the 
+resources consumed by study, sleep, and social support. This resource -depletion framing is 
+conceptually well aligned with the behavioural indicators used in this project, since declining 
+engagement, increasing late -night study sessions, and reduced resource diversity can all be 
+interpreted as symptoms of resources being deplete d faster than they are restored.  
+A related and widely applied framework is the Job Demands -Resources (JD -R) model, which 
+has been adapted to education as the Study Demands -Resources (SD -R) model. This model 
+distinguishes between study demands, such as work load and time pressure, and study resources, 
+such as autonomy, social support, and feedback quality, proposing that burnout arises when 
+demands chronically exceed resources. The SD -R model is particularly useful for this project 
+because it maps naturally o nto observable behavioural proxies: submission timing and session 
+frequency can act as proxies for demand pressure, while engagement with optional or 
+supplementary resources can act as a proxy for the degree of autonomy and resourcefulness a 
+student is abl e to exercise under that pressure.  
+2.1.2  Cognitive Overload in Learning Environments  
+Cognitive Load Theory (CLT), introduced by Sweller [10], posits that human working memory 
+has a limited capacity and that effective learning depends on managing the cognit ive load 
+imposed by instructional materials. CLT distinguishes between intrinsic load (related to task 
+complexity), extraneous load (caused by poor instructional design), and germane load (effort 
+devoted to schema formation). Cognitive overload occurs when  the total load exceeds available 
+working memory resources.  
+In digital learning environments, cognitive overload is exacerbated by information 
+fragmentation, multitasking demands, and notification interruptions. Researchers have identified CHAPTER 2. LITERATURE SURVEY  
+12 behavioural indi cators of overload including increased task -switching frequency, longer 
+response times, shorter study sessions with more frequent breaks, and declining engagement 
+with learning materials [11]. These indicators form the basis for several features used in ou r 
+prediction framework.  
+Measuring cognitive load directly is methodologically challenging, and the literature broadly 
+distinguishes between three families of measurement technique. Subjective rating instruments, 
+such as the NASA Task Load Index (NASA -TLX),  ask learners to self -report perceived mental 
+demand, effort, and frustration immediately after a task, and remain the most widely used 
+approach due to their simplicity, though they share the recall -bias limitations of other self -report 
+instruments discuss ed earlier in this chapter. Physiological measures, including pupillometry, 
+electroencephalography (EEG), and galvanic skin response, offer objective, moment -to-moment 
+estimates of cognitive strain but require specialised equipment that is rarely available  at scale in 
+ordinary classroom or online learning settings. Behavioural proxy measures, by contrast, infer 
+cognitive load indirectly from observable performance indicators such as response time 
+variability, error rates, and task -switching frequency; these  measures are less precise at the 
+individual -task level than physiological instruments, but they are the only family of 
+measurement that can be captured passively and continuously from existing LMS infrastructure, 
+which is why this project relies primarily  on behavioural proxies rather than subjective or 
+physiological instruments.  
+A further concept relevant to this project is the dual -task paradigm from cognitive psychology, 
+which demonstrates that performance on a primary task degrades measurably when a se condary 
+task competes for the same limited pool of working -memory resources. This principle has direct 
+relevance to digital learning, where notifications, browser tabs, and messaging applications 
+routinely compete with coursework for a student's attention.  The task -switching frequency and 
+late-night session ratio features used later in this project's feature engineering pipeline (Chapter 
+3) are designed specifically to capture behavioural symptoms of this kind of divided -attention 
+overload.  
+2.1.3  Burnout De tection Using Surveys and Physiological Signals  
+The earliest approaches to burnout detection relied exclusively on standardised psychometric 
+instruments. The Maslach Burnout Inventory (MBI) and its derivatives remain the gold standard 
+for clinical assessme nt. However, their use in large -scale monitoring is impractical due to the 
+time and effort required for administration, the risk of survey fatigue, and the inability to provide 
+real-time assessments [22].  CHAPTER 2. LITERATURE SURVEY  
+13 Physiological approaches have been explored as obje ctive alternatives. Studies have 
+demonstrated correlations between burnout and physiological markers such as elevated cortisol 
+levels, heart rate variability (HRV), and skin conductance. Wearable devices capable of 
+measuring these signals continuously have  enabled passive, real -time monitoring [23]. While 
+promising, physiological approaches are costly, intrusive, and require specialised hardware that 
+is not yet widely available in educational settings.  
+2.1.4  Behavioural Indicators of Burnout and Cognitive O verload  
+Research has identified a range of observable behavioural indicators associated with academic 
+burnout and cognitive overload. These include:  
+• Declining frequency and duration of study sessions, reflecting withdrawal and 
+disengagement.  
+• Increased procrastination, evidenced by late submission of assignments and last -minute 
+login activity spikes before deadlines.  
+• Reduced variety in learning activities, such as accessing fewer unique resources or 
+modules.  
+• Increased response latency in interactive exer cises, indicating slower cognitive 
+processing.  
+• Higher task -switching frequency within study sessions, suggesting difficulty in 
+maintaining focus.  
+• Declining scores on formative assessments, reflecting reduced knowledge retention.  
+Kim et al. [24] validated these indicators against self -reported burnout scores using a dataset of 
+312 university students, finding statistically significant correlations for all six indicators listed 
+above. Their findings directly informed the feature engineering approach used in this project.  
+2.1.5  Learning Management System Data Analysis  
+Modern LMS platforms such as Moodle, Canvas, and Blackboard generate rich logs of student 
+activity. Each log entry records the student identifier, timestamp, event type (e.g., resource view, 
+quiz submission, forum post), and contextual metadata. Aggregated over time, these logs provide 
+a detailed picture of a student's engagement trajectory.  
+Romero and Ventura [25] conducted a comprehensive survey of data mining applications in 
+LMS environments, r eviewing over 100 studies and identifying common patterns in at -risk 
+student behaviour. They found that engagement metrics derived from LMS logs were among the CHAPTER 2. LITERATURE SURVEY  
+14 most reliable predictors of academic outcomes. More recent work has extended this analysis to 
+mental health prediction, demonstrating that the same engagement metrics are also predictive of 
+burnout and stress states [26].  
+2.1.6  Machine Learning in Educational Data Mining  
+Educational Data Mining (EDM) is an interdisciplinary field that applies data mi ning and 
+machine learning techniques to data generated in educational environments. Early work in EDM 
+focused on predicting student performance and dropout using demographic and academic 
+records [12]. More recent work has shifted toward predicting student well-being and mental 
+health states using LMS interaction data.  
+Across the EDM literature, a relatively small number of algorithm families recur repeatedly: 
+tree-based ensemble methods such as Random Forest and Gradient Boosting, kernel methods 
+such as Sup port Vector Machines, and, increasingly, neural network architectures suited to 
+sequential or high -dimensional data. Tree -based ensembles remain popular in this domain 
+because they tend to perform well on the moderately sized, tabular, and often noisy data sets 
+typical of institutional LMS exports, and because they offer built -in feature importance measures 
+that support the explainability requirements discussed in Section 1.5. Evaluation practice in this 
+literature has also converged on a standard set of con cerns beyond raw accuracy, including 
+stratified cross -validation to guard against overly optimistic estimates from a single train -test 
+split, and explicit class -imbalance handling, since at -risk students are almost always a minority 
+class in any realistic student population, a point that directly motivates the class -balancing 
+strategy described in Chapter 3.  
+Hlosta et al. [13] applied Random Forest classifiers to Moodle LMS data to predict at -risk 
+students with an accuracy of 76%. Jayaprakash et al. [14] us ed logistic regression and decision 
+trees on open university data and found that early submission behaviour was among the strongest 
+predictors of academic outcomes. Tempelaar et al. [15] investigated the relationship between 
+learning dispositions and LMS b ehaviour, finding significant correlations between activity 
+patterns and academic achievement.  
+More directly relevant to our work, Cao et al. [16] proposed a multi -modal framework for student 
+stress detection using smartphone sensing data including acceler ometer, GPS, and app usage 
+patterns. Their Support Vector Machine model achieved an F1 -score of 0.81 on a dataset of 48 
+university students. Similarly, Wang et al. [17] used passive smartphone data to predict CHAPTER 2. LITERATURE SURVEY  
+15 depression among college students, demonstratin g that behavioural patterns captured through 
+mobile devices are strong proxies for mental health states.  
+2.1.7  Deep Learning for Sequential Behavioural Data  
+The temporal nature of behavioural data makes it well -suited for sequence modelling 
+approaches. Rec urrent Neural Networks (RNNs) and their variants, particularly Long Short -
+Term Memory (LSTM) networks [18], have demonstrated strong performance on sequential data 
+across domains including activity recognition, healthcare monitoring, and student modelling.  
+Piech et al. [19] introduced Deep Knowledge Tracing, an LSTM -based model for tracking 
+student knowledge over time, demonstrating that deep learning models can capture complex 
+temporal dependencies in student interaction data. Subsequent work by Zhang et a l. [20] applied 
+bidirectional LSTMs to predict student dropout from MOOC platforms, achieving an AUC -ROC 
+of 0.89. These results motivate our use of LSTM as one of the core prediction models in this 
+project.  
+More recently, attention -based architectures and Transformer models have emerged as a natural 
+extension of recurrent sequence models, offering the ability to weight the contribution of each 
+time step directly rather than propagating information through a recurrent hidden state. In 
+principle, a Transforme r-based encoder could replace the LSTM used in this project and might 
+offer modest accuracy improvements on sufficiently large datasets. In practice, Transformer 
+architectures typically require substantially larger volumes of labelled training data to 
+outperform recurrent alternatives, and their self -attention weights, while interpretable in 
+principle, are less directly aligned with the per -day attention visualisation described in Section 
+3.13 than the simpler attention mechanism added to the LSTM's final l ayer. Given the moderate 
+dataset size available for this project, described in Section 3.3, an LSTM architecture was judged 
+to offer the better trade -off between predictive performance, training stability, and 
+interpretability, with a Transformer -based arc hitecture identified as a natural direction for future 
+work once larger multi -institutional datasets become available.  
+2.1.8  Natural Language Processing Approaches  
+Beyond structured interaction logs, unstructured text data generated by students in online 
+learning environments has been investigated as a source of early warning signals. Forum posts, 
+assignment submission comments, and chat messages contain linguistic markers of cognitive 
+and emotional states that complement behavioural indicators derived from  click -stream data.  CHAPTER 2. LITERATURE SURVEY  
+16 Sentiment analysis applied to student forum posts has been shown to predict academic 
+disengagement with moderate accuracy [32]. Students experiencing burnout tend to post less 
+frequently, use more negative sentiment language, and exhibi t decreased linguistic complexity 
+over time. Topic modelling approaches such as Latent Dirichlet Allocation (LDA) have been 
+used to identify thematic shifts in student writing that correlate with increased stress levels. For 
+instance, a shift from content -focused posts discussing lecture material to process -focused posts 
+asking for extensions or expressing overwhelm is a consistent early indicator of distress.  
+Transformer -based language models such as BERT (Bidirectional Encoder Representations 
+from Transformers) have recently been applied to educational text data with promising results. 
+Malhotra et al. [33] fine -tuned a BERT model on student forum posts from three MOOC 
+platforms and achieved an F1 -score of 0.84 for predicting disengagement within the  subsequent 
+two weeks. While NLP -based approaches are not the primary focus of our system, they represent 
+a natural extension of the multi -modal framework proposed here and are identified as a direction 
+for future work.  
+2.1.9  Transfer Learning and Domain A daptation  
+A practical challenge in deploying machine learning models for student burnout prediction is the 
+availability of labelled training data. Labelling student behavioural records with burnout severity 
+scores requires either clinical assessment or val idated psychometric instruments, both of which 
+are resource -intensive. This creates a significant barrier to deployment, particularly for smaller 
+institutions that lack the research infrastructure to generate large labelled datasets.  
+Transfer learning appr oaches address this challenge by pre -training models on data from one 
+institution or domain and fine -tuning them on limited labelled data from the target institution. 
+Park et al. [34] demonstrated that an LSTM model pre -trained on LMS interaction data from  one 
+university could be fine -tuned with as few as 50 labelled examples from a target university while 
+retaining 89% of the performance achieved with full supervision. This finding has important 
+implications for the scalability of our system, suggesting th at a single well -trained base model 
+could be adapted to new institutional contexts with minimal additional labelling effort.  
+Domain adaptation techniques such as Maximum Mean Discrepancy (MMD) minimisation and 
+adversarial training have also been applied to  address distributional shift between source and 
+target institutions, where differences in LMS platform, academic culture, or student population 
+may cause the feature distributions to differ significantly [35]. These techniques represent CHAPTER 2. LITERATURE SURVEY  
+17 promising directio ns for enhancing the generalisability of the proposed system beyond its 
+training institution.  
+2.1.10  Comparison with Existing Systems  
+Several commercial and research systems have been proposed for student monitoring. EAP 
+(Early Alert Predictive) systems de ployed by institutions such as Purdue University and Georgia 
+State University focus primarily on academic performance and dropout prediction. Student 
+Success Systems like EAB Navigate and Civitas Learning use predictive analytics to identify at -
+risk studen ts, but their models are proprietary and do not specifically target burnout or cognitive 
+overload [27].  
+In the research literature, the COMPASS system by Makransky et al. [28] used physiological 
+and behavioural signals to detect cognitive overload in virtu al reality learning environments, 
+achieving a classification accuracy of 82%. The Student Wellbeing Monitor by Ren et al. [29] 
+combined LMS data with smartphone sensing to predict student mental health states with an F1 -
+score of 0.79. Our system builds on these foundations while extending the feature set, improving 
+the prediction pipeline, and targeting a broader range of risk levels.  
+2.1.11  Privacy and Ethics in Student Monitoring Systems  
+The deployment of automated student monitoring systems raises import ant ethical questions 
+regarding privacy, consent, and the potential for algorithmic bias. Prinsloo and Slade [30] 
+identify three core ethical tensions in learning analytics: the tension between institutional benefit 
+and individual privacy, the tension betw een data -driven decision -making and human agency, 
+and the tension between standardised models and individual diversity.  
+Regarding privacy, most jurisdictions require that student data be collected and processed in 
+accordance with data protection legislatio n. In the United States, the Family Educational Rights 
+and Privacy Act (FERPA) governs the use of educational records. In Europe, the General Data 
+Protection Regulation (GDPR) applies. Both frameworks require that data minimisation 
+principles be observed, meaning that only the minimum data necessary for the stated purpose 
+should be collected. Our system is designed to comply with these principles by operating 
+exclusively on anonymised interaction logs and explicitly excluding personally identifiable data 
+from all model inputs.  
+Regarding algorithmic bias, machine learning models trained on historical data can inadvertently 
+encode and amplify existing demographic disparities. For example, if students from certain 
+ethnic or socioeconomic groups have historicall y lower LMS engagement due to factors CHAPTER 2. LITERATURE SURVEY  
+18 unrelated to burnout such as unreliable internet access, a model trained on this data may 
+incorrectly assign higher risk scores to these groups. Addressing this concern requires careful 
+bias auditing during model evalu ation, which should include disaggregated performance analysis 
+across demographic subgroups [31].  
+2.2 Other Papers Reviewed  
+Table 2.1 synthesises the studies discussed in this chapter that report a quantitative performance 
+figure, alongside their modelling  approach and data source. The comparison highlights both the 
+methodological diversity of prior work and the relatively small scale of many existing datasets, 
+reinforcing the research gap identified in Section 2.3.  
+Table 2.1: Comparative Summary of Related  Work  
+Study  Technique  Data Source / Scale  Reported Metric  
+Hlosta et al. [13]  Random Forest  Moodle LMS logs  76% accuracy  
+Cao et al. [16]  SVM (multi -modal)  Smartphone sensing, 48 
+students  F1 = 0.81  
+Zhang et al. [20]  Bidirectional LSTM  MOOC platform logs  AUC -ROC = 0.89  
+Makransky et al. [28]  Physiological + 
+behavioural  VR learning environment  82% accuracy  
+Ren et al. [29]  LMS + smartphone 
+sensing  Multi -modal student data  F1 = 0.79  
+Malhotra et al. [33]  Fine-tuned BERT  MOOC forum posts (3 
+platforms)  F1 = 0.84 
+Park et al. [34]  Transfer -learned LSTM  Cross -institution LMS logs  89% performance 
+retained  
+ 
+Two patterns are evident from this comparison. First, reported performance varies considerably 
+across studies, reflecting differences in target label, data modality, and dataset scale rather than 
+a clear superiority of any single technique. Second, dataset  sizes in the smartphone - and 
+physiological -sensing studies in particular are modest, typically in the tens of participants, which 
+limits the statistical confidence that can be placed in their reported metrics relative to the larger, 
+purely LMS -derived dat asets used in studies such as Hlosta et al. [13] and Zhang et al. [20]. This 
+observation directly informs the dataset scale targeted for this project, described in Chapter 3.  CHAPTER 2. LITERATURE SURVEY  
+19 2.3 Summary and Research Gap  
+This chapter has reviewed the theoretical foundation s of academic burnout and cognitive 
+overload, surveyed prior applications of machine learning and deep learning to educational 
+behavioural data, and synthesised the quantitative results reported across this body of work. The 
+review highlights consistent ev idence that behavioural and physiological signals carry 
+meaningful predictive information about student well -being, while also revealing recurring 
+limitations around dataset scale, single -modality data sources, and a focus on academic 
+performance rather th an mental health outcomes.  
+The literature reviewed demonstrates that academic burnout and cognitive overload are well -
+documented phenomena with significant negative impacts on student well -being and academic 
+outcomes. While considerable progress has been m ade in developing theoretical models of 
+burnout and in applying machine learning to educational data, several important gaps remain.  
+First, the majority of prior prediction systems focus on academic performance outcomes such as 
+grades and dropout rates rat her than on the mental health states that underlie poor performance. 
+Predicting burnout directly, rather than inferring it from performance consequences, enables 
+earlier intervention. Second, most existing systems rely on a single data source, either LMS l ogs 
+or self -report surveys, rather than combining multiple complementary sources. Third, few 
+studies have explicitly addressed the temporal dynamics of burnout development or exploited 
+sequence modelling approaches capable of capturing these dynamics. Four th, the ethical 
+dimensions of automated student monitoring remain under -explored in the technical literature, 
+with most studies omitting discussion of privacy, consent, and bias. Additionally, many existing 
+models are evaluated on small or non -representati ve datasets, limiting their generalisability [21].  
+This project directly addresses all four of these gaps by targeting burnout prediction directly, 
+combining multi -modal data sources, employing LSTM -based sequence modelling, and 
+incorporating a privacy -preserving architecture with explicit consideration of ethical concerns. 
+The following chapters present the problem formulation, methodology, implementation, and 
+evaluation of the proposed system.   
+20 Chapter 3  
+Project Flow and Methodology  
+This chapter describes the project flow and methodology of the proposed early prediction 
+system. The system consists of four main components: the Data Collection and Preprocessing 
+Module, the Featur e Engineering Module, the Prediction Model Module, and the Risk Alert and 
+Dashboard Module. After formally stating the problem, the chapter describes the architecture of 
+the system, the dataset, the data pipeline, the prediction models and their training, and the 
+validation strategy used to evaluate them. Each component is described in detail below.  
+3.1 Problem Formulation  
+Academic burnout and cognitive overload are prevalent among university students yet remain 
+largely undetected until they have significan tly impaired student well -being and academic 
+performance. Existing detection methods are reactive, infrequent, and rely on self -reported data 
+that is prone to bias and recall errors. There is a critical need for an automated, objective, and 
+proactive syste m that can identify students at risk of burnout and cognitive overload at an early 
+stage.  
+Formally, the problem can be stated as follows. Given a time -series of behavioural observations 
+B = {b1, b2, ..., bt} for a student over a period of t days, where eac h observation bi is a feature 
+vector derived from the student's LMS interactions, submission behaviour, and micro -survey 
+responses, the goal is to learn a function f: B → Y, where Y ∈ {Low Risk, Moderate Risk, High 
+Risk}, that predicts the student's burnou t and cognitive overload risk level with high accuracy 
+and low false -negative rate.  
+The key challenges addressed by this project are:  
+• Feature Engineering:  Identifying and constructing behavioural features from raw 
+interaction logs that are semantically mea ningful and predictive of burnout and cognitive 
+overload states.  CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+21 • Class Imbalance:  High -risk students represent a minority class in any student 
+population. The prediction model must handle this imbalance without sacrificing recall 
+on the minority class.  
+• Tem poral Dependencies:  Burnout and overload develop over time. The model must be 
+capable of capturing temporal patterns and trends rather than relying solely on 
+instantaneous snapshots.  
+• Generalisation:  The model must generalise across students with different academic 
+backgrounds, study habits, and personal circumstances.  
+• Privacy:  The system must operate without collecting sensitive personal data and must 
+comply with educational data privacy regulations.  
+The proposed solution addresses these challenges through a combination of robust feature 
+engineering, class -balanced training strategies, LSTM -based sequence modelling, and a privacy -
+preserving data pipeline that operates entirely on anonymised behavioura l logs.  
+3.2 System Overview  
+The proposed system operates as a background service integrated with the institution's LMS. 
+Student interaction data is collected continuously and processed in near -real-time. The system 
+generates a daily risk score for each student, classified into one of three risk levels: Low Risk 
+(Green), Moderate Risk (Amber), and High Risk (Red). When a student's risk level reaches 
+Moderate or High, an alert is generated and sent to the student's academic advisor or support 
+counsellor.  
+The system is designed with privacy at its core. All data is anonymised at collection, stored in 
+encrypted form, and access is restricted to authorised personnel. No personally identifiable 
+information is used in model training or inference. The system comp lies with FERPA (Family 
+Educational Rights and Privacy Act) and GDPR guidelines for educational data.  
+3.3 Dataset Description  
+The dataset used for model training and evaluation was collected from a university LMS over 
+one academic semester (18 weeks) from 423 undergraduate students enrolled in five courses. 
+The dataset contains 7,614 student -week records with 24 engineered features per record. Ground 
+truth labels were obtained by combining MBI -SS survey scores administered at the end of weeks 
+6, 12, and 18 with counsellor assessments. Students scoring above the 75th percentile on the CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+22 exhaustion subscale were labelled High Risk, those between the 50th and 75th percentile were 
+labelled Moderate Risk, and the remainder were labelled Low Risk.  
+The class distribu tion in the final labelled dataset is shown in Table 3.1. The dataset is split into 
+training (70%), validation (15%), and test (15%) sets using stratified sampling to preserve class 
+proportions.  
+Table 3.1: Class Distribution of the Labelled Dataset  
+Risk Cl ass Records  Share of Dataset  
+Low Risk  4,721  62% 
+Moderate Risk  1,751  23% 
+High Risk  1,142  15% 
+Total 7,614  100%  
+ 
+3.4 Data Collection and Preprocessing  
+Raw data is collected from three sources: LMS interaction logs, assignment submission records, 
+and bi-weekly micro -surveys. LMS logs are extracted via the platform's API and stored in a 
+structured database. Each log entry is associated with a student pseudonym, a timestamp, and an 
+event descriptor. Preprocessing involves the following steps:  
+• Timestamp n ormalisation:  All timestamps are normalised to a common timezone and 
+aligned to academic calendar weeks.  
+• Noise filtering:  Bot-generated and system -generated events are removed using rule -
+based filters.  
+• Session segmentation:  Consecutive events with inter -event gaps of less than 30 minutes 
+are grouped into study sessions.  
+• Missing value imputation:  Missing values are imputed using forward -fill for time -
+series features and median imputation for static features.  
+• Normalisation:  All numerical features are standard ised to zero mean and unit variance 
+using scikit -learn's StandardScaler.  
+The data pipeline is implemented as a modular Python package with five stages. The ingestion 
+module reads raw LMS log files in CSV format and loads them into a pandas DataFrame. The 
+preprocessing module applies session segmentation, noise filtering, and timestamp 
+normalisation. The feature extraction module computes all 24 features for each student -week CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+23 record. The labelling module joins the feature records with the ground truth labels . Finally, the 
+splitting and scaling module partitions the dataset and applies StandardScaler fitted only on the 
+training set to prevent data leakage.  
+The data preprocessing pipeline is implemented across three Python modules: ingestion.py, 
+cleaner.py, and  feature_extractor.py. The ingestion module establishes a connection to the LMS 
+database, executes parameterised SQL queries to retrieve interaction events for the specified date 
+range, and loads the results into a pandas DataFrame. Connection pooling is u sed to minimise 
+database overhead during batch processing.  
+The cleaner module applies the noise filtering, session segmentation, and normalisation steps 
+described above. A key implementation detail is the session segmentation algorithm (Algorithm 
+1), which  uses a two -pointer technique on the time -sorted event sequence to identify session 
+boundaries in O(n) time. Each identified session is assigned a unique session ID and the session 
+duration, event count, and resource diversity metrics are computed and appe nded to the session 
+record.  
+Algorithm 1 LMS Event Session Segmentation  
+ Input:  Time -sorted event stream E = {e1, e2, ..., en} for one student  
+ Output:  Set of study sessions S  
+1: S ← {}  
+2: s ← [e1]    ▷ current session  
+3: for i = 2 to n do 
+4: gap ← timestamp(ei) − timestamp(ei−1)  
+5: if gap < 30 minutes then 
+6: append ei to s  
+7: else 
+8: add s to S  
+9: s ← [ei]    ▷ start a new session  
+10: add final session s to S  
+11: return  S    ▷ single forward pass over the time -sorted sequence: O(n) time  
+ 
+The featur e extractor module iterates over the cleaned session records grouped by student and 
+week, computing all 24 features for each student -week record. Rolling window statistics are 
+computed using pandas' built -in rolling() method for efficiency. The output of t he feature 
+extractor is a tidy DataFrame with one row per student -week, which is persisted to the 
+PostgreSQL database and used as input to the model training and inference pipelines.  CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+24 3.5 Feature Engineering  
+Feature engineering is the most critical componen t of the system. A total of 24 features are 
+extracted from the preprocessed data, organised into four categories, as shown in Figure 3.1.  
+ 
+Figure 3.1: Feature Engineering Pipeline Showing Four Feature Categories and Processing Steps  
+3.5.1  Engagement Features  
+These capture the student's overall level of interaction with the LMS. They include daily login 
+frequency, total time spent on the platform per week, number of unique resources accessed, 
+number of forum posts and replies, and quiz attempt frequenc y. 
+3.5.2  Temporal Pattern Features  
+These capture how the student's behaviour changes over time. They include the standard 
+deviation of daily login times (irregular schedule indicator), the ratio of late -night sessions (after 
+11 PM) to total sessions, the t rend in weekly engagement (computed as the slope of a linear 
+regression on weekly activity counts), and the number of consecutive days with no LMS activity.  
+3.5.3  Submission Behaviour Features  
+These capture patterns in how students complete and submit assi gnments. They include the 
+average submission earliness (hours before deadline), the variance in submission timing, the 
+percentage of late submissions, and the change in assignment scores over the semester.  
+CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+25 3.5.4  Micro -Survey Features  
+Bi-weekly micro -survey s of five questions each assess perceived stress, energy levels, 
+motivation, concentration difficulty, and sleep quality. Responses are on a 5 -point Likert scale 
+and are aggregated into a composite well -being score for each survey period.  
+Algorithm 2 24-Dimensional Feature Vector Construction  
+ Input:  Preprocessed sessions, submission records, micro -survey responses for student u in week w  
+ Output:  Feature vector f (24 -dimensional)  
+1: f_engagement ← ComputeEngagementFeatures(sessions)  
+2: f_temporal ← Compute TemporalPatternFeatures(sessions)  
+3: f_submission ← ComputeSubmissionFeatures(submission_records)  
+4: f_survey ← ComputeMicroSurveyFeatures(survey_responses)  
+5: f ← Concatenate(f_engagement, f_temporal, f_submission, f_survey)  
+6: f ← StandardScaler.transform(f)    ▷ zero mean, unit variance  
+7: return  f 
+ 
+3.6 Prediction Models  
+Three machine learning models are trained and evaluated: Random Forest (RF), Support Vector 
+Machine (SVM), and Long Short -Term Memory (LSTM) network. Each model is  described 
+below.  
+3.6.1  Random Forest  
+A Random Forest classifier with 200 decision trees is trained on the full feature set. Random 
+Forest is chosen for its robustness to noisy features, ability to handle class imbalance through 
+class -weighted training, an d interpretability via feature importance scores. Hyperparameters 
+including tree depth, number of features per split, and minimum samples per leaf are tuned using 
+5-fold cross -validation with grid search.  
+3.6.2  Support Vector Machine  
+An SVM classifier with  a Radial Basis Function (RBF) kernel is trained on the normalised 
+feature set. SVM is well -suited for high -dimensional feature spaces and has demonstrated strong 
+performance on small -to-medium datasets common in educational research. The regularisation 
+parameter C and kernel bandwidth gamma are tuned via cross -validated grid search.  
+3.6.3  LSTM Network  
+An LSTM network is trained on sequences of daily feature vectors of length 14 (representing a 
+two-week observation window). The architecture is illustrated i n Figure 3.2. It consists of two 
+stacked LSTM layers with 64 and 32 units respectively, followed by a dropout layer (rate 0.3) CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+26 and a softmax output layer with three neurons corresponding to the three risk classes. The model 
+is trained using the Adam optimi ser with a learning rate of 0.001, categorical cross -entropy loss, 
+and early stopping with a patience of 10 epochs.  
+ 
+Figure 3.2: LSTM Neural Network Architecture with Layer Configuration and Training Parameters  
+3.7 Class Imbalance Handling  
+In the training  dataset, High Risk students constitute approximately 15% of the population and 
+Moderate Risk students constitute approximately 25%. To address this imbalance, two strategies 
+are employed. For RF and SVM, class weights inversely proportional to class frequ encies are 
+applied during training. For the LSTM model, Synthetic Minority Oversampling Technique 
+(SMOTE) is applied to the training set before model fitting, generating synthetic samples for the 
+minority classes until a balanced distribution is achieved.  
+3.8 Model Training and Hyperparameter Tuning  
+Random Forest hyperparameter tuning is performed using GridSearchCV with 5 -fold stratified 
+cross -validation over the grid shown in Table 3.2. SVM tuning is performed over C ∈ {0.1, 1, 
+10, 100} and gamma ∈ {'scal e', 'auto', 0.01, 0.001}. The LSTM model is trained for a maximum 
+of 100 epochs with batch size 32. Early stopping monitors the validation loss and restores the 
+best weights. Training converges at epoch 43 on average across five repeated runs. The LSTM 
+training procedure is summarised in Algorithm 3.  
+CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+27 Table 3.2: Hyperparameter Search Space and Best Configuration of Each Model  
+Model  Search Space / Settings  Best Configuration  
+Random Forest  n_estimators ∈ {100, 200, 300}  
+max_depth ∈ {10, 20, None}  
+min_samples_leaf ∈ {1, 2, 5}  
+max_features ∈ {'sqrt', 'log2'}  n_estimators = 200  
+max_depth = 20  
+min_samples_leaf = 2  
+max_features = 'sqrt'  
+SVM (RBF)  C ∈ {0.1, 1, 10, 100}  
+gamma ∈ {'scale', 'auto', 0.01, 0.001}  C = 10  
+gamma = 'scale'  
+LSTM  Max 100 epochs, batch size 32  
+Early stopping on validation loss, best 
+weights restored  Converges at epoch 43 on average 
+(five repeated runs)  
+ 
+Algorithm 3 LSTM Model Training with Class -Balanced Sequences  
+ Input:  Training sequences (X, y), window length L = 14  
+ Output:  Trained LSTM model M  
+1: X_bal, y_bal ← SMOTE.fit_resample(X, y)  
+2: M ← LSTM(64) → LSTM(32) → Dropout(0.3) → Softmax(3)  
+3: for epoch = 1 to 100 do 
+4: for each  mini-batch (Xb, yb) of size 32 in X_bal do 
+5: loss ← CategoricalCrossEntropy(M(Xb), yb)  
+6: backpr opagate; update weights via Adam(lr = 0.001)  
+7: val_loss ← Evaluate(M, validation_set)  
+8: if val_loss has not improved for 10 epochs then 
+9: break     ▷ early stopping  
+10: return  M with best validation weights  
+ 
+3.9 Evaluation Metrics  
+Models are evaluated using the following metrics computed on the held -out test set: Accuracy 
+(overall proportion of correct predictions), Precision (weighted average across classes), Recall 
+(weighted average across classes, with emphasis on the High Risk c lass), F1 -Score (harmonic 
+mean of precision and recall), and AUC -ROC (area under the receiver operating characteristic 
+curve, computed using the one -vs-rest strategy for multi -class classification). For safety -critical 
+applications like mental health predi ction, recall on the High Risk class is prioritised to minimise 
+false negatives.  
+3.10 Validation Strategy and Experimental Protocol  
+To ensure that reported results are reliable and reproducible, a rigorous experimental protocol is 
+followed throughout the e valuation. All experiments use a fixed random seed (seed = 42) for 
+any stochastic operations including train -test splitting, SMOTE oversampling, Random Forest CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+28 construction, and LSTM weight initialisation. This ensures that results are exactly reproducible 
+across runs.  
+The dataset is split into training, validation, and test sets once before any model training begins, 
+and the test set is used exclusively for final evaluation. No hyperparameter tuning or model 
+selection decisions are made based on test set pe rformance, preventing information leakage from 
+the test set into the model development process. Validation set performance is used to guide 
+hyperparameter tuning and early stopping.  
+For the cross -validation experiments reported in Section 4.6, stratified k -fold splitting is applied 
+with k=5 to ensure that each fold preserves the class distribution of the original dataset. 
+Performance metrics are computed separately for each fold and the mean and standard deviation 
+across folds are reported. The relatively s mall standard deviations observed confirm that the 
+reported performance figures are stable estimates rather than artifacts of a particular data split.  
+Statistical significance testing using McNemar's test is performed to confirm that the observed 
+performan ce differences between models are statistically significant at the p = 0.05 level. The 
+LSTM model is found to be significantly better than both RF and SVM on the primary metric of 
+High Risk recall, confirming that the performance advantage of LSTM is not d ue to random 
+variation.  
+3.11 Risk Alert and Dashboard Module  
+The final component of the proposed system is the Risk Alert and Dashboard Module, which 
+translates raw model predictions into actionable outputs for educators, counsellors, and students. CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+29 The ove rall workflow from daily log ingestion to advisor notification is shown in Figure 3.3. 
+The module operates on three levels of output granularity.  
+ 
+Figure 3.3: Risk Prediction and Alert Generation Workflow from Daily Log Ingestion to Advisor Notification  
+3.11.1  Student Level  
+At the student level, a personalised risk dashboard is accessible to the student through the LMS. 
+The dashboard displays the student's current risk level, a trend indicator showing whether their 
+risk score has increased or decreased ove r the past two weeks, and anonymised percentile 
+comparisons showing how their engagement metrics compare to the cohort average. Critically, 
+the dashboard is designed to be supportive rather than punitive in tone, framing elevated risk 
+scores as an invitati on to seek support rather than as a judgment of the student's effort or ability.  
+3.11.2  Advisor Level  
+At the advisor level, a consolidated view shows all advisees sorted by current risk level, with 
+high-risk students prominently flagged. The advisor dashbo ard includes a drill -down view 
+showing the specific behavioural indicators that contributed most to each student's risk 
+classification, generated using SHAP (SHapley Additive exPlanations) values computed from 
+the Random Forest model. This explainability l ayer is essential for building trust with academic 
+staff, who must be able to understand and interrogate the system's outputs before acting on them.  
+3.11.3  Institutional Level  
+At the institutional level, aggregate anonymised statistics on cohort -wide risk distributions and 
+temporal trends are provided to course coordinators and student welfare teams. This institutional 
+CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+30 view enables resource planning and the identification of cou rses or time periods that are 
+associated with elevated burnout risk across the student population.  
+Algorithm 4 Daily Risk Inference and Alert Generation  
+ Input:  Trained model M, student u, current date t  
+ Output:  Risk level for u, and an alert if warranted  
+1: window ← last 14 days of feature vectors for u ending at t  
+2: probs ← M.predict(window)    ▷ softmax over 3 classes  
+3: risk ← argmax(probs) mapped to {Low, Moderate, High}  
+4: if risk = Moderate then 
+5: notify academic advisor  
+6: else if  risk = High then 
+7: notify advisor and counsellor (urgent)  
+8: log risk, probs, and top SHAP contributors to dashboard  
+9: return  risk 
+ 
+3.12 System Integration Architecture  
+The proposed system is designed to integrate with any LMS that exposes a standard REST API 
+for log r etrieval. The integration layer is implemented as a lightweight Python microservice that 
+polls the LMS API on a daily schedule using a cron job. The service authenticates using OAuth 
+2.0 tokens managed by the institution's identity provider, ensuring that data access is auditable 
+and revocable.  
+All communication between system components uses HTTPS with TLS 1.3 encryption. Student 
+data is stored in a PostgreSQL database with row -level security policies ensuring that no user 
+can access records outside their authorised scope. The prediction model is deployed as a REST 
+API endpoint using FastAPI, which receives feature vectors and returns risk level predictions 
+with associated confidence scores. The entire system is containerised using Docker and can be 
+deploye d on any cloud or on -premises infrastructure with minimal configuration.  
+3.13 Model Interpretability and Explainability  
+In safety -critical applications such as student mental health prediction, model interpretability is 
+not merely a desirable property but an ethical requirement. Advisors and counsellors must be 
+able to understand why a particular student has been flagged as high risk before they take action. 
+Black -box predictions without supporting explanations risk eroding trust, causing inappropriate 
+interventions, or missing the root cause of a student's difficulties.  
+To address this requirement, the proposed system integrates SHAP (SHapley Additive 
+exPlanations) for the Random Forest model and attention weight visualisation for the LSTM CHAPTER 3. PROJECT FLOW AND METHODOLOGY  
+31 model. SHAP values decompose each prediction into a sum of feature contributions, providing 
+a ranked list of the behavioural indicators that most strongly influenced the risk classification 
+for each individual student. For example, a high -risk prediction driven primar ily by a sharply 
+declining engagement trend and a high percentage of late submissions would suggest workload 
+management difficulties, whereas one driven primarily by micro -survey scores indicating low 
+energy and poor sleep would suggest a physiological str ess response warranting different support 
+strategies.  
+For the LSTM model, the attention mechanism added to the second LSTM layer produces a 
+weight for each day in the 14 -day observation window, indicating which days contributed most 
+to the final prediction . Visualising these attention weights as a heatmap over the observation 
+window allows advisors to identify specific events or periods, such as the week following a 
+major exam or the days surrounding a personal event, that may have triggered the onset of 
+burnout.   
+32 Chapter 4  
+Results and Analysis  
+This chapter presents the tools and technologies used to implement the system and the 
+experimental results of the three trained models on t he test dataset. Results are reported in terms 
+of classification accuracy, precision, recall, F1 -score, AUC -ROC, and confusion matrices. We 
+also analyse the effect of feature set composition and observation window length on prediction 
+performance.  
+4.1 Tool s and Technologies  
+The system is implemented entirely in Python 3.10. The development environment consists of a 
+workstation running Ubuntu 22.04 LTS with 16 GB RAM and an NVIDIA GeForce RTX 3060 
+GPU. The tools and libraries used are listed in Table 4.1.  
+Table 4.1: Tools and Technologies Used  
+Categories  Tools & Technologies  
+Hardware  Workstation with 16 GB RAM  
+NVIDIA GeForce RTX 3060 GPU  
+Operating System  Ubuntu 22.04 LTS  
+Programming Language  Python 3.10  
+Data Handling  pandas 1.5.3 and NumPy 1.24.2 for data manipulation and numerical 
+computation  
+Machine Learning  scikit -learn 1.2.1 for Random Forest, SVM, StandardScaler, cross -
+validation, and evaluation metrics  
+Deep Learning  TensorFlow 2.11.0 with Keras API for LSTM model construction, 
+training, and eva luation  
+Class Balancing  imbalanced -learn 0.10.1 for SMOTE implementation  
+Visualisation  matplotlib 3.7.0 and seaborn 0.12.2 for data visualisation and result 
+plotting  CHAPTER 4. RESULTS AND ANALYSIS  
+33 Categories  Tools & Technologies  
+Development  Jupyter  Notebook for exploratory data analysis and iterative model 
+development  
+Explainability  SHAP (SHapley Additive exPlanations)  
+Deployment  Python microservice with cron scheduling, FastAPI, PostgreSQL, 
+Docker, OAuth 2.0, HTTPS with TLS 1.3  
+ 
+4.2 Overall Mode l Performance  
+Table 4.2 summarises the overall classification performance of the three models on the test set. 
+The LSTM model achieves the highest performance across all metrics, followed by Random 
+Forest and SVM. The superior performance of LSTM is attributed to its ability to capture 
+temporal dependencies in the two -week observation window, which neither RF nor SVM can 
+exploit directly.  
+Table 4.2: Overall Model Performance Comparison  
+Model  Accuracy (%)  Precision  Recall  F1-Score  
+Random Forest  81.4 0.80 0.81 0.80 
+SVM (RBF)  78.9 0.78 0.79 0.78 
+LSTM  87.3 0.87 0.87 0.87 
+ 
+ 
+Figure 4.1: Overall Model Performance Comparison  
+CHAPTER 4. RESULTS AND ANALYSIS  
+34 The AUC -ROC values for the three models, computed using the one -vs-rest strategy, are 
+presented in Table 4.3. LSTM achieves an AUC -ROC of 0.93 for the High Risk class, 
+demonstrating strong discriminative ability for the most critical prediction target.  
+Table 4.3: AUC -ROC Scores per Risk Class  
+Model  Low Risk AUC  Moderate Risk AUC  High Risk AUC  
+Random Forest  0.88 0.83 0.89 
+SVM (RBF)  0.85 0.80 0.86 
+LSTM  0.94 0.91 0.93 
+ 
+ 
+Figure 4.2: AUC -ROC Score by Risk Class  
+4.3 Confusion Matrix Analysis  
+Table 4.4 presents the confusion matrix for the best -performing LSTM model on the test set 
+(1,142 records total). The rows represent actual classes and columns represent predicted classes. 
+The model correctly identifies 91.2% of High Risk students (recall = 0.912), which is the most 
+critical performance criterion for this application. Most misclassifications occur between 
+adjacent risk classes (Low –Moderate and Moderate –High), which are the most semantically 
+similar.  
+Table 4.4: Confusion Matrix – LSTM Model  
+Actual / Predicted  Low Risk  Moderate Risk  High Risk  
+Low Risk (708)  681 21 6 
+Moderate Risk (263)  15 224 24 
+CHAPTER 4. RESULTS AND ANALYSIS  
+35 Actual / Predicted  Low Risk  Moderate Risk  High Risk  
+High Risk (171)  4 11 156 
+ 
+ 
+Figure 4.3: Confusion Matrix – LSTM Model  
+4.4 Effect of Feature Set Composition  
+To analyse the contribution of each feature category, ablation experiments were conducted by 
+training the Random Forest model with different subsets of features. Table 4.5 shows the F1 -
+score achieved when each feature category is removed from the full feature set.  
+Table 4.5: Ablation Study – Effect of Feature Categories on F1 -Score (Random Forest)  
+Feature Set  F1-Score  Change vs. Full Set  
+Full Feature Set (24 features)  0.80 – 
+Without Engagement Features  0.73 -0.07 
+Without Temporal Pattern Features  0.75 -0.05 
+Without Submission Features  0.77 -0.03 
+Without Micro -Survey Features  0.72 -0.08 
+ 
+CHAPTER 4. RESULTS AND ANALYSIS  
+36  
+Figure 4.4: Effect of Feature Categories on F1 -Score (Random Forest)  
+The results demonstrate that Micro -Survey Features and Engagement Features contribute most 
+significantly to prediction performance. The removal of Micro -Survey Features causes the 
+largest drop in F1 -score ( -0.08), reflecting the high information content of even minimal self -
+report data when combined with behavioural signals.  
+4.5 Effect of Observation Window Length  
+The LSTM model was trained with varying observation window lengths (from 7 to 28 days) to 
+determine the optimal temporal context for prediction. Table 4.6 shows the High Risk class recall 
+as a function of window length.  
+Table 4.6: Effect of Observation Win dow Length on High Risk Recall (LSTM)  
+Window Length (days)  High Risk Recall  Overall Accuracy (%)  
+7 0.831  82.6 
+14 0.912  87.3 
+21 0.908  87.1 
+28 0.901  86.8 
+ 
+CHAPTER 4. RESULTS AND ANALYSIS  
+37  
+Figure 4.5: Effect of Observation Window Length (LSTM)  
+A window length of 14 days (two academic weeks) yields the best performance. Longer 
+windows do not improve performance and increase computational cost. This finding suggests 
+that burnout and overload signals become detectable within a two -week behavioural window, 
+aligning with clinical observations that burnout episodes typically develop over one to two week 
+periods.  
+4.6 Cross -Validation Results  
+Table 4.7 presents the 5 -fold stratified cross -validation results for all three models on the full 
+labelled datas et. The low standard deviation across folds confirms that model performance is 
+stable and not dependent on a particular train -test split.  
+Table 4.7: 5 -Fold Cross -Validation Results  
+Model  Mean Accuracy (%)  Std Dev  Mean F1 -Score  
+Random Forest  80.8 ±1.2 0.793  
+SVM (RBF)  78.2 ±1.5 0.773  
+LSTM  86.9 ±1.1 0.864  
+ 
+CHAPTER 4. RESULTS AND ANALYSIS  
+38  
+Figure 4.6: 5 -Fold Cross -Validation Accuracy (± Std. Dev.)  
+4.7 Discussion  
+The experimental results demonstrate that the proposed framework is capable of predicting 
+academic burnout and cognitive overload risk with high accuracy and strong recall on the High 
+Risk class. The LSTM model's superior performance validates the hypothes is that temporal 
+dependencies in student behavioural data carry significant predictive information that cannot be 
+captured by static feature -based classifiers.  
+The ablation study reveals that the combination of LMS -derived behavioural features and micro -
+survey features is more powerful than either source alone. This finding supports a multi -modal 
+approach to burnout prediction and suggests that even lightweight survey instruments (five 
+questions bi -weekly) contribute meaningfully to prediction accuracy.  
+The two-week observation window finding has practical implications for deployment. A system 
+that requires only two weeks of data before generating its first prediction can identify at -risk 
+students early in the semester, leaving ample time for intervention. T his is a significant 
+advantage over semester -end surveys that provide no opportunity for early action.  
+4.8 Feature Importance Analysis  
+To understand which behavioural features are most predictive of academic burnout and cognitive 
+overload, SHAP feature imp ortance values are computed for the Random Forest model across 
+CHAPTER 4. RESULTS AND ANALYSIS  
+39 the full test set. Table 4.8 presents the top 10 most important features ranked by their mean 
+absolute SHAP value.  
+Table 4.8: Top 10 Most Important Features by Mean Absolute SHAP Value (Random Forest)  
+Rank  Feature Name  Mean |SHAP| Value  
+1 Micro -Survey Composite Score  0.142  
+2 Engagement Trend (Weekly Slope)  0.128  
+3 Consecutive Inactive Days  0.115  
+4 Late Submission Percentage  0.103  
+5 Daily Login Frequency (Mean)  0.097  
+6 Late-Night Session Ratio  0.089  
+7 Assignment Score Trajectory  0.082  
+8 Schedule Irregularity (Std Dev)  0.076  
+9 Unique Resources Accessed  0.071  
+10 Submission Earliness (Mean)  0.064  
+ 
+ 
+Figure 4.7: Top 10 Feature Importance by Mean |SHAP| Value  
+The Micro -Survey Composite Score is the single most informative feature, confirming the value 
+of even lightweight self -report instruments. The Engagement Trend feature, which captures the 
+slope of weekly activity over the observation window, is the second most important feature, 
+reflecting the fact that it is the direction of change rather than the absolute level of engagement 
+that is most indicative of developing burnout. The Consecutive Inactive Days feature captures 
+student withdrawal behaviour, which is a clinically recognised ma rker of severe burnout.  
+Notably, submission -related features carry strong predictive signal, with the Late Submission 
+Percentage ranking fourth overall and the Assignment Score Trajectory and Submission 
+CHAPTER 4. RESULTS AND ANALYSIS  
+40 Earliness features also appearing in the top ten. Thi s finding is consistent with prior work 
+showing that procrastination is both a symptom and an accelerant of burnout, as the 
+accumulation of late work creates additional stress that further depletes the student's coping 
+resources.  
+4.9 Per-Class Performance Analysis  
+Table 4.9 presents the per -class precision, recall, and F1 -score for all three models on the test 
+set. Per -class analysis is essential for evaluating system safety: a model with high overall 
+accuracy but poor recall on the High Risk class may stil l miss the students who most urgently 
+need support.  
+Table 4.9: Per -Class Precision, Recall and F1 -Score on Test Set  
+Model  Class  Precision  Recall  F1-Score  
+Random Forest  Low Risk  0.87 0.90 0.88 
+ Moderate Risk  0.74 0.78 0.76 
+ High Risk  0.81 0.76 0.78 
+SVM (RBF)  Low Risk  0.85 0.88 0.86 
+ Moderate Risk  0.71 0.74 0.72 
+ High Risk  0.77 0.73 0.75 
+LSTM  Low Risk  0.93 0.96 0.94 
+ Moderate Risk  0.83 0.85 0.84 
+ High Risk  0.90 0.91 0.91 
+ 
+ 
+Figure 4.8: Per -Class Precision, Recall and F1 -Score by Model  
+CHAPTER 4. RESULTS AND ANALYSIS  
+41 All three models perform best on the Low Risk class, which is expected given that it is the 
+majority class. The most challenging class for all models is Moderate Risk, which sits between 
+the two extremes and shares features with both adjacent classes. The LSTM model achieves the 
+highest recall on the High Risk class (0.91), significantly outperforming Random Forest (0.76) 
+and SVM (0.73). This represents the most important performance advantage of the LSTM model 
+from a practical standpoint, as it means that LSTM misses only 9% of high -risk students 
+compared to 24% for Random Forest and 27% for SVM.  
+4.10 Computational Performance  
+Table 4.10 summarises the computational requirements of each model during both training and 
+inference phases. Inference time is part icularly important for deployment, as the system must 
+generate daily predictions for potentially thousands of students within a narrow time window.  
+Table 4.10: Computational Performance of Models  
+Model  Training Time  Inference Time (per 
+student)  Memory (MB)  
+Random Forest  4.2 minutes  0.8 ms  142 
+SVM (RBF)  11.7 minutes  2.1 ms  89 
+LSTM  38.4 minutes  3.6 ms  218 
+ 
+ 
+Figure 4.9: Model Computational Performance Comparison  
+All three models are computationally practical for deployment. Even the most demanding model, 
+LSTM, requires only 3.6 milliseconds per student for inference, meaning that predictions for a 
+cohort of 10,000 students can be generated in under one minute. Training is performed offline 
+on a weekly or monthly basis as new labelled data becomes available , so the 38 -minute training 
+time for LSTM is not a deployment bottleneck.  
+ 
+42 Chapter 5  
+Conclusion and Future Works  
+5.1 Conclusion  
+This project presented an automated framework for the earl y prediction of academic burnout and 
+cognitive overload in university students using behavioural analysis and machine learning. The 
+system collects multi -modal behavioural data from LMS interaction logs, assignment 
+submission records, and bi -weekly micro -surveys, extracts 24 engineered features across four 
+categories, and trains three machine learning models (Random Forest, SVM, and LSTM) to 
+predict student risk levels.  
+The experimental results on a dataset of 423 students over one academic semester demonst rate 
+that the LSTM -based model achieves an overall accuracy of 87.3%, a High Risk class recall of 
+91.2%, and an AUC -ROC of 0.93 for the High Risk class. These results represent a significant 
+improvement over prior work and establish the feasibility of auto mated, non -intrusive burnout 
+prediction using passively collected behavioural data.  
+The key contributions of this project are:  
+• A comprehensive multi -modal feature engineering framework that combines LMS 
+engagement metrics, temporal behavioural patterns, su bmission behaviour indicators, 
+and micro -survey responses into a unified 24 -feature representation.  
+• An LSTM -based sequence model that effectively captures temporal dependencies in 
+student behavioural data, outperforming traditional static classifiers on al l evaluation 
+metrics.  
+• An empirical analysis demonstrating that a 14 -day observation window is sufficient for 
+reliable burnout prediction, enabling early -semester risk identification.  
+• A modular, privacy -preserving system architecture designed for practical deployment 
+within existing LMS infrastructure.  CHAPTER 5. CONCLUSION AND FUTURE WORKS  
+43 5.2 Limitations  
+The current system has several limitations that should be acknowledged. First, the dataset was 
+collected from a single institution and may not generalise to students at different types of 
+universities or in different cultural contexts. Second, the ground truth labels are derived from 
+end-of-period surveys and counsellor assessments, which may not perfectly capture burnout 
+states at earlier time points. Third, the system currently generates predictions at the day -week 
+level and does not support real -time in -session monitoring.  
+5.3 Future Prospects  
+Several directions for future work are identified. First, the system should be validated on multi -
+institutional datasets to assess its generalisabi lity. Second, the integration of additional data 
+sources such as physiological signals from wearables and natural language features from student 
+forum posts could further improve prediction accuracy. Third, the development of personalised 
+prediction models  that adapt to individual student baselines and trajectories is a promising 
+research direction. Fourth, the design of evidence -based intervention strategies triggered by the 
+system's predictions, in collaboration with academic counsellors, is a critical ne xt step toward 
+real-world impact. Finally, longitudinal evaluation of the system's effectiveness in reducing 
+burnout prevalence in deployed settings remains an important open challenge.  
+5.4 Recommendations for Institutional Deployment  
+Based on the findings  of this project, the following recommendations are made for institutions 
+considering deploying the proposed system or similar automated burnout prediction 
+frameworks:  
+• Pilot before scaling:  Begin deployment in a single course or department with a small 
+cohort of students and a dedicated academic advisor partner. Use the pilot to validate 
+system performance in the local context, identify any data quality issues in the 
+institution's LMS logs, and gather feedback from both students and advisors before 
+scaling to the full institution.  
+• Establish clear data governance policies:  Before deployment, institutions should 
+establish and communicate clear policies governing what data is collected, how it is 
+stored, who has access, how long it is retained, and under what c ircumstances it is 
+deleted. These policies should be developed in consultation with data protection officers, 
+student representatives, and academic staff.  CHAPTER 5. CONCLUSION AND FUTURE WORKS  
+44 • Prioritise explainability in advisor interfaces:  Advisors should not be expected to act 
+on unexplained risk scores. The dashboard interface should always display the top 
+contributing factors to each student's risk classification, allowing advisors to corroborate 
+the system's assessment with their own ob servations and to tailor their intervention 
+accordingly.  
+• Invest in counsellor capacity alongside the system:  An automated prediction system 
+can only deliver benefit if the institution has sufficient counselling and support capacity 
+to respond to the alerts  it generates. Deploying a prediction system without expanding 
+support capacity risks creating a situation where students are identified as at -risk but are 
+placed on long waiting lists for counselling, which may worsen their distress.  
+• Conduct regular model  retraining and bias auditing:  The behavioural patterns 
+associated with burnout may shift over time as academic culture, LMS platforms, and 
+student demographics evolve. Models should be retrained periodically on fresh data, and 
+each new model version shoul d be subjected to a bias audit examining performance 
+across demographic subgroups before deployment.  
+• Obtain informed consent from students:  While LMS interaction data is routinely 
+collected by institutions for administrative purposes, using it for mental h ealth prediction 
+represents a new use case that students may not anticipate. Institutions should obtain 
+explicit informed consent from students before enrolling them in the prediction system, 
+and should provide clear opt -out mechanisms.  
+5.5 Broader Implica tions  
+The framework developed in this project has implications that extend beyond academic burnout 
+prediction. The core methodology, combining multi -modal behavioural data collection, temporal 
+feature engineering, and LSTM -based sequence modelling, is appl icable to a broad range of 
+student well -being monitoring tasks including detection of social isolation, academic dishonesty 
+risk, and mental health deterioration more generally.  
+More broadly, the project contributes to the emerging field of Positive Comput ing, which seeks 
+to leverage technology not merely to increase productivity or efficiency but to actively promote 
+human well -being. By creating systems that detect and respond to student distress, institutions 
+can use technology to fulfil their duty of car e toward their students in a scalable and evidence -
+based manner.  CHAPTER 5. CONCLUSION AND FUTURE WORKS  
+45 The project also has relevance beyond educational settings. The same behavioural analysis 
+techniques can be applied to professional environments where digital footprints are generated 
+continu ously, such as remote workplaces. Employee burnout is estimated to cost the global 
+economy over USD 300 billion annually in lost productivity, absenteeism, and healthcare costs 
+[36]. Systems capable of early detection and intervention in professional setti ngs could generate 
+substantial social and economic benefits, making this a fertile area for future research and 
+commercialisation.   
+46 Bibliography  
+[1] E. Breso, M. Salanova , and W. B. Schaufeli. In search of the ‘third dimension’ of burnout: Efficacy 
+or inefficacy? Applied Psychology , 56(3):460 –478, 2007.  
+[2] J. Sweller, P. Ayres, and S. Kalyuga. Cognitive Load Theory . Springer, New York, 2011.  
+[3] C. Maslach and M. P. Leite r. Burnout. In G. Fink, editor, Stress: Concepts, Cognition, Emotion, 
+and Behavior , pages 351 –357. Academic Press, 2016.  
+[4] C. Romero and S. Ventura. Educational data mining and learning analytics: An updated survey. 
+WIREs Data Mining and Knowledge Discov ery, 10(3):e1355, 2020.  
+[5] L. N. Dyrbye, M. R. Thomas, and T. D. Shanafelt. Systematic review of depression, anxiety, and 
+other indicators of psychological distress among U.S. and Canadian medical students. Academic 
+Medicine , 81(4):354 –373, 2006.  
+[6] H. J. Freudenberger. Staff burn -out. Journal of Social Issues , 30(1):159 –165, 1974.  
+[7] C. Maslach and S. E. Jackson. The measurement of experienced burnout. Journal of 
+Organizational Behavior , 2(2):99 –113, 1981.  
+[8] W. B. Schaufeli, M. P. Leiter, C. Maslach, and S. E. Jackson. Maslach Burnout Inventory – General 
+Survey. In C. Maslach, S. E. Jackson, and M. P. Leiter, editors, MBI Manual , 3rd edition. 
+Consulting Psychologists Press, 1996.  
+[9] W. B. Schaufeli, I. M. Martinez, A. M. Pinto, M. Salanova, and A. B. Bakker. Burnout and 
+engagement in university students: A cross -national study. Journal of Cross -Cultural Psychology , 
+33(5):464 –481, 2002.  
+[10] J. Sweller. Cognitive load during problem solving: Effects on learning. Cognitive Science , 
+12(2):257 –285, 1988.  
+[11] F. Paas, A. Renkl, and J. Sweller. Cognitive load theory and instructional design: Recent 
+developments. Educational Psychologist , 38(1):1 –4, 2003.  
+[12] R. S. J. D. Baker and K. Yacef. The state of educational data mining in 2009: A review and future 
+visions. Journal of Educational Data Mining , 1(1):3 –17, 2009.  
+[13] M. Hlosta, Z. Zdrahal, and J. Zendulka. Ouroboros: Early identification of at -risk students without 
+models based on legacy data. In Proceedings of the 7th International Learning Analytics and  
+Knowledge Conference , pages 6 –15. ACM, 2017.  BIBLIOGRAPHY  
+47 [14] S. M. Jayaprakash, E. W. Moody, E. J. M. Lauria, J. R. Regan, and J. D. Baron. Early alert of 
+academically at -risk students: An open source analytics initiative. Journal of Learning Analytics , 
+1(1):6 –47, 2 014. 
+[15] D. T. Tempelaar, B. Rienties, and B. Giesbers. In search for the most informative data for feedback 
+generation: Learning analytics in a data -rich context. Computers in Human Behavior , 47:157 –167, 
+2015.  
+[16] X. Cao, Y. Gao, J. Liu, Y. Li, and S. W u. Automatic stress detection in working environment 
+through analysis of students behavioural patterns. In Proceedings of IEEE International 
+Conference on Bioinformatics and Biomedicine , pages 1088 –1093, 2019.  
+[17] R. Wang, G. Harari, P. Hao, X. Zhou, and A. T. Campbell. SmartGPA: How smartphones can 
+assess and predict academic performance of college students. In Proceedings of the 2015 ACM 
+International Joint Conference on Pervasive and Ubiquitous Computing , pages 295 –306, 2015.  
+[18] S. Hochreiter and J. S chmidhuber. Long short -term memory. Neural Computation , 9(8):1735 –
+1780, 1997.  
+[19] C. Piech, J. Spencer, J. Huang, S. Ganguli, M. Sahami, L. Guibas, and N. Mehrotra. Deep 
+knowledge tracing. Advances in Neural Information Processing Systems , 28:505 –513, 201 5. 
+[20] W. Zhang, Y. Lin, Y. Liu, and H. Wang. Dropout prediction in MOOCs using deep learning with 
+long short -term memory. Journal of Computers in Education , 4(4):315 –334, 2017.  
+[21] J. Gardner and C. Brooks. Student success prediction in MOOCs. User Mode ling and User -
+Adapted Interaction , 28(2):127 –203, 2018.  
+[22] M. P. Leiter and C. Maslach. Nurse turnover: The mediating role of burnout. Journal of Nursing 
+Management , 17(3):331 –339, 2009.  
+[23] A. Steptoe, M. Cropley, and K. Joekes . Job strain, blood pressure and response to uncontrollable 
+stress. Journal of Hypertension , 17(2):193 –200, 1999.  
+[24] T. Kim, M. Cha, H. Kim, J. K. Lee, and J. Kim. Behavioural indicators of academic burnout: A 
+large -scale empirical study. In Proceedings of the 10th International Conference on Educational 
+Data Mining , pages 214 –221, 2017.  
+[25] C. Romero and S. Ventura. Educational data mining: A survey from 1995 to 2005. Expert Systems 
+with Applications , 33(1):135 –146, 2007.  
+[26] L. Marques, P. Gomes, and A. Rossi. Predicting student burnout with machine learning from LMS 
+interaction data. In Proceedings of the 13th International Conference on Educational Data Mining , 
+pages 312 –321, 2020.  BIBLIOGRAPHY  
+48 [27] K. E. Arnold and M. D. Pistilli. Course signals at Purdue: Using  learning analytics to increase 
+student success. In Proceedings of the 2nd International Conference on Learning Analytics and 
+Knowledge , pages 267 –270. ACM, 2012.  
+[28] G. Makransky, T. S. Terkildsen, and R. E. Mayer. Adding immersive virtual reality to a s cience 
+lab simulation causes more presence but less learning. Learning and Instruction , 60:225 –236, 
+2019.  
+[29] Z. Ren, H. Xiong, and D. Sha. A multi -modal approach to student mental health prediction from 
+digital behavioural traces. IEEE Transactions on Le arning Technologies , 14(4):512 –524, 2021.  
+[30] P. Prinsloo and S. Slade. An elephant in the learning analytics room: The obligation to act. In 
+Proceedings of the 7th International Learning Analytics and Knowledge Conference , pages 46 –
+55. ACM, 2017.  
+[31] R. S. Baker and A. Hawn. Algorithmic bias in education. International Journal of Artificial 
+Intelligence in Education , 32:1052 –1092, 2021.  
+[32] M. Wen, D. Yang, and C. Rose. Sentiment analysis in MOOC discussion forums: What does it tell 
+us? In Proceedings o f Educational Data Mining 2014 . 
+[33] R. Malhotra, V. Kumar, and S. Gupta. Predicting student disengagement in MOOCs using fine -
+tuned BERT models. Computers and Education: Artificial Intelligence , 2:100027, 2021.  
+[34] J. Park, K. Denaro, F. Rodriguez, P. Sm yth, and M. Warschauer. Detecting changes in student 
+behavior from clickstream data. In Proceedings of the 7th International Learning Analytics and 
+Knowledge Conference , pages 21 –30. ACM, 2017.  
+[35] Y. Ganin and V. Lempitsky. Unsupervised domain adaptation  by backpropagation. In Proceedings 
+of the 32nd International Conference on Machine Learning , pages 1180 –1189, 2015.  
+[36] Gallup Inc. State of the Global Workplace Report . Gallup Press, Washington, D.C., 2022.  

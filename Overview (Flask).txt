@@ -1,0 +1,70 @@
+Test APIs
+
+1.Test Register
+ 
+    Post->http://127.0.0.1:5000/registerz(url/register)
+    
+    example:
+         {
+               "name": "Pavi",
+               "email": "pavi@gmail.com",
+               "password": "1234"
+          }
+
+   output:Registered Sucessfully.......
+
+
+2.Test Login
+ 
+    Post->Url/login
+
+    example / Active Account:
+         {
+               "name": "Pavi",
+               "email": "Pavithra47@gmail.com",
+               "password": "mypassword123"
+         }
+
+   output:
+       {
+          "student_id": "6a9ed5b42c959bf82e993c93",
+          "name": "Pavi",
+          "email": "Pavithra47@gmail.com",
+          "message": "Login success"
+       }
+    
+
+3.Test Predict
+   
+   Post->/predict
+
+   example :
+         {
+             "sleep_hours": 5,
+             "stress_level": 4
+         }
+
+   Output:Gives you your stress level(medium,high,low)
+
+
+4.Test Save
+
+    Post->/save   
+ 
+    example:
+         {
+               "student_id": "PASTE_ID_HERE",
+               "week_no": 1,
+               "study_hours": 7,
+               "sleep_hours": 5,
+               "screen_time": 6,
+               "stress_level": 4,
+               "attendance_percentage": 80,
+               "exam_score": 70,
+               "burnout_probability": 0.85,
+                "risk_level": "High"
+          }
+
+   output: Open Compass → weekly_data
+           ✔ Data should be inserted ✅
+        

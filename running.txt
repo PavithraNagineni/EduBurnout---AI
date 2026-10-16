@@ -1,0 +1,20 @@
+first mongodb conncection
+
+1. Run as Administratior : 
+   net start MongoDB
+
+2.In Command Prompt :
+   "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --dbpath "C:\data\db"
+
+Make Sure MONGODB IS OPEND AND CONNECTED TO LOCAL HOST
+
+
+Now, run flask server(Backend)
+  cmd 1: cd Backend
+  cmd 2: Python app.Py
+
+
+Now, run react server(Frontend)
+   cmd 1: cd Frontend
+   cmd 2: npm start
+
